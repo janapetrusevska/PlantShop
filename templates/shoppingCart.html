@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+   <div class="container m-3">
+        <div class="row d-flex" style="padding: 20px;">
+            <h2>Shopping Cart</h2>
+            {% if user.is_authenticated %}
+                {% if total %}
+                     <form method="post">
+                    {% csrf_token %}
+                    {% for item in shopping_cart_items %}
+                        <div class="row">
+                            <div class="col-md-2 how-img">
+                                <img class="card-img-top m-3" src="{{ item.plant.photo.url }}" alt="{{ item.plant.name }} Photo">
+                            </div>
+                            <div class="col-md-6" style="padding: 10px 30px 0px 30px;">
+                                <h4><b>{{ item.plant.name }}</b></h4>
+                                <p class="text-muted">{{ item.plant.description }}</p>
+                            </div>
+                            <div class="col-md-2" style="padding: 40px 30px 0px 30px;">
+                                <p>Size: {{ item.plant.size }}</p>
+                                <p>Quantity: {{ item.quantity }}</p>
+                                <p style="font-size: 20px;"><b>Price: {{ item.plant.price }} den. </b></p>
+                            </div>
+                            <div class="col-md-2" style="padding: 40px 30px 0px 30px;">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <p>{{ item.plant.name }} - Quantity in Cart: {{ item.quantity }}</p>
+                                        <label for="quantity">Quantity to Remove:</label>
+                                        <input type="number" name="quantity" min="1" max="{{ item.quantity }}" value="1">
+                                        <button type="submit" formaction="{% url 'remove_from_cart' item.id %}" class="btn btn-danger">Remove</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <hr>
+                        </div>
+                    {% endfor %}
+                    </form>
+                    <div class="row">
+                        <div class="col-md-6 offset-md-6" style="text-align: right;">
+                            <h4><b>Total Price: {{ total }} den.</b></h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-right" style="text-align: right;">
+                            <a href="{% url 'checkout' %}" class="btn btn-success col-3" style="margin: 20px 0px;">Buy plants</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <p>Your shopping cart is empty!</p>
+                {% endif %}
+            {% else %}
+                <p>You are not logged in. Please <a href="{% url 'login' %}">login</a> to continue.</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container-fluid" style="padding: 30px;">
+        <div class="row">
+            <div class="col-md-3" style="background-color: #80C56E">
+              <div class="filters" style="padding: 20px;">
+                  <h2>Filters</h2>
+                  <br>
+                  <h4 class="text-white">Families</h4>
+                  {% for category in categories %}
+                    <p class="text-white">{{ category.family }}</p>
+                  {% endfor %}
+                  <h4 class="text-white">Light</h4>
+                  <p class="text-white">Low</p>
+                  <p class="text-white">Regular</p>
+                  <p class="text-white">High</p>
+                  <h4 class="text-white">Water</h4>
+                  <p class="text-white">Low</p>
+                  <p class="text-white">Regular</p>
+                  <p class="text-white">High</p>
+              </div>
+            </div>
+            <div class="col-md-9">
+              <div class="card-deck">
+                  <div class="row d-flex justify-content-center">
+                    <h2 style="padding: 0px 0px 0px 75px;">Plants</h2>
+                    {% if plants %}
+                        {% for plant in plants %}
+                        <div class="card col-6 m-3" style="width: 300px; padding: 10px;" >
+                            <img class="card-img-top col-8 m-3" src="{{ plant.photo.url }}" alt="{{ plant.name }}" style="width: 250px;height: 250px;">
+                            <h4 class="card-title">{{ plant.name }}</h4>
+                            <p class="card-text">{{ plant.price }} ден.</p>
+                            <button class="btn btn-success col-6"><a style="color: white" href="{% url 'singlePlant' plant.code %}">View Details</a></button>
+                        </div>
+                    {% endfor %}
+                    {% else %}
+                        <h6 style="padding: 0px 0px 0px 75px;" >No plants with the provided name. Try searching something else.</h6>
+                    {% endif %}
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="container m-3">
+
+    </div>
+{% endblock %}

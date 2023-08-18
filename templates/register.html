@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container m-3 d-flex justify-content-center">
+        <div class="row" style="padding: 20px;">
+            <h2 style="margin-left: 40px">Register Page</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-5 how-img">
+                    <img class="card-img-top col-4 m-3" src="https://hips.hearstapps.com/hmg-prod/images/plant-guide-kitchen-plants-1663799228.jpg?resize=1200:*" alt="Photo">
+                </div>
+                <div class="col-md-6 card" style="margin: 10px 0px 0px 60px;">
+                    {% if error %}
+                        <p style="color: red;">{{ error }}</p>
+                    {% endif %}
+                    <form method="post" style="padding: 20px">
+                        {% csrf_token %}
+                        <div class="row">
+                            <p>Fill in the information to register as a new user.</p>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="form-label" for="username">Username</label>
+                                <input type="text" id="username" name="username" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="form-label" for="email">Email</label>
+                                <input type="text" id="email" name="email" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div>
+                                <label class="form-label" for="password">Password</label>
+                                <input type="password" id="password" name="password" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row" style="padding:20px">
+                            <button type="submit" class="btn btn-success" >Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
